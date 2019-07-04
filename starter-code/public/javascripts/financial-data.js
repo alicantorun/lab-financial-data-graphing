@@ -4,17 +4,20 @@ document.getElementById("search-btn").onclick = () => {
   //   document.getElementById("valueBeginning").oninput = () => {
   event.preventDefault();
   const beginningQueryValue = document.getElementById("valueBeginning").value;
-  console.log(beginningQueryValue);
+  //   console.log(beginningQueryValue);
   //   };
 
   //   document.getElementById("valueEnding").oninput = () => {
   // event.preventDefault();
   const endingValueQuery = document.getElementById("valueEnding").value;
-  console.log(endingValueQuery);
+  //   console.log(endingValueQuery);
   //   };
 
+  const currencyValue = document.getElementById("currencyValue").value;
+  //   console.log(currencyValue);
+
   const url = `https://api.coindesk.com/v1/bpi/currentprice.json`;
-  const closingDataUrl = `https://api.coindesk.com/v1/bpi/historical/close.json?start=${beginningQueryValue}&end=${endingValueQuery}`;
+  const closingDataUrl = `https://api.coindesk.com/v1/bpi/historical/close.json?start=${beginningQueryValue}&end=${endingValueQuery}&currency=${currencyValue}`;
 
   //   fetch(url)
   //     .then(response => {
@@ -36,6 +39,21 @@ document.getElementById("search-btn").onclick = () => {
       console.log(datesSelected);
       console.log(pricesSelected);
 
+      const maxValue = Math.max(...pricesSelected);
+      console.log(maxValue);
+      const minValue = Math.min(...pricesSelected);
+      console.log(minValue);
+
+      const maxDate = datesSelected[pricesSelected.indexOf(maxValue)];
+      console.log(maxDate);
+      const minDate = datesSelected[pricesSelected.indexOf(minValue)];
+      console.log(minDate);
+
+      document.querySelector("#min-value").innerHTML = `${minValue} - `;
+      document.querySelector("#max-value").innerHTML = `${maxValue} - `;
+      document.querySelector("#min-date").innerHTML = `${minDate}`;
+      document.querySelector("#max-date").innerHTML = `${maxDate}`;
+
       const ctx = document.getElementById("myChart").getContext("2d");
 
       const myChart = new Chart(ctx, {
@@ -44,7 +62,7 @@ document.getElementById("search-btn").onclick = () => {
           labels: datesSelected,
           datasets: [
             {
-              label: "Bitcoin price",
+              label: `Bitcoin prices in ${currencyValue}`,
               data: pricesSelected,
               backgroundColor: "rgba(255, 99, 132, 0.2)"
             }

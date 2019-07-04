@@ -12,11 +12,18 @@
     <input type="date" name="" id="valueBeginning">
     <input type="date" name="" id="valueEnding">
     <button type="submit" id="search-btn">Search for Data</button>
+    <select name="" id="currencyValue">
+      <option value="USD">USD</option>
+      <option value="EUR">EUR</option>
+      <option value="GBP">GBP</option>
+    </select>
   </form>
 
 
   <h1> {{title}} </h1>
   <p>Welcome to {{title}} </p>
+  <p><span id="min-value">Min Value </span><span id="min-date">Min Date</span></p>
+  <p><span id="max-value">Max Value </span><span id="max-date">Max Date</span></p>
   <div class="canvas-wrapper">
     <canvas id="myChart" width="250" height="250"></canvas>
   </div>
